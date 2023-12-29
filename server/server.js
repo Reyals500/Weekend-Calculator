@@ -11,7 +11,20 @@ app.use(express.static('server/public'));
 
 // Global variable that will contain all of the
 // calculation objects:
-let calculations = []
+let calculations = [
+  {
+    numOne: 2,
+    numTwo: 3,
+    operator: '+',
+    result: 5
+  },
+  {
+    numOne: 10,
+    numTwo: 5,
+    operator: '*',
+    result: 50
+  }
+]
 
 
 // Here's a wonderful place to make some routes:
@@ -57,11 +70,41 @@ app.get('/calculations', (req, res) => {
 
 // POST /calculations
 app.post('/calculations', (req, res) => {
-  console.log('POST on /calculations', req.body.data);//get the req.body b4 push
-  calculations.push(req.body.data)
-  console.log('After the push', req.body.data);//seeing if the push went through
+  let numOnes = Number(req.body.numOne)
+  let numTwos = Number(req.body.numTwo)
+  let doingCalculations = {
+      numOne: numOnes,
+      numTwo: numTwos,
+      operator: req.body.operator
+  }
+  const answer = doCalculations(doingCalculations)
+
+  const newHistory = {
+    numOne: req.body.numOne,
+    numTwo: req.body.numTwo,
+    operator: req.body.operator,
+    result: answer
+  }
+
+  calculations.push(newHistory)
   res.sendStatus(201)
 })
+
+function doCalculations(input){
+
+  switch (input.operator) {
+    case "+": // ! If the operator is a +
+      return (input.numOne) + input.numTwo
+    case "-": // ! If the operator is a -
+      return input.numOne - input.numTwo
+    case "*": // ! If the operator is a *
+      return input.numOne * input.numTwo
+    case "/": // ! If the operator is a /
+      return input.numOne / input.numTwo
+    default:
+      return NaN
+  }
+}
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
 // 🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸
