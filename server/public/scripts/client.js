@@ -5,7 +5,7 @@
     function handlerGetCalculations(){
         axios({
             method: "GET",
-            url: "/calculations"
+            url: '/calculations'
         }).then((response) => {
             //add in rendering latest answer and rendering history
             renderHistory(response.data);
@@ -26,28 +26,21 @@
         let numOne = document.getElementById('numOne').value
         let numTwo = document.getElementById('numTwo').value
         
-        axios({
-        method: 'POST',
-        url: '/calculations',
-        data: {
-            calculation: 
-            {
+        axios.post("/calculations", {
                 numOne: numOne,
                 numTwo: numTwo,
                 operator: operator
-            },
-        }
-      })
+        })
       .then((response) =>{
         console.log('successfully submitted', response )
         //add Get history and handlerClear
         handleClear(event);
-        renderHistory()
+        handlerGetCalculations();
       })
       .catch((error) =>{
         alert("Ya goofed")
         console.log('error', error)
-      })
+      });
       
       }
       function operatorEvent(event){
@@ -78,10 +71,10 @@
       //   });
       // }
       function renderHistory(history) {
-        console.log("Rendering History...");
+        console.log("Rendering History...", history);
         let placeToRender = document.getElementById("resultHistory");
-        // placeToRender.innerHTML = '';
+        placeToRender.textContent = '';
         for(let item of history){
-        placeToRender.innerText += `<li>${item.numOne} ${item.operator} ${item.numTwo} = ${item.result}</li>`;
+        placeToRender.textContent += `<ul>${item.numOne} ${item.operator} ${item.numTwo} = ${item.result}</ul>`;
         };
       }

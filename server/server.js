@@ -70,15 +70,17 @@ app.get('/calculations', (req, res) => {
 
 // POST /calculations
 app.post('/calculations', (req, res) => {
-  let numOnes = Number(req.body.numOne)
-  let numTwos = Number(req.body.numTwo)
+  console.log("/calculations POST");
+  console.log("req.body", req.body);
+  let numOneNumber = Number(req.body.numOne)
+  let numTwoNumber = Number(req.body.numTwo)
   let doingCalculations = {
-      numOne: numOnes,
-      numTwo: numTwos,
+      numOne: numOneNumber,
+      numTwo: numTwoNumber,
       operator: req.body.operator
   }
   const answer = doCalculations(doingCalculations)
-
+  console.log("Answer", Number(answer));
   const newHistory = {
     numOne: req.body.numOne,
     numTwo: req.body.numTwo,
