@@ -58,7 +58,7 @@
         console.log("Rendering Answer");
         const lastHistory = history[history.length - 1];
         console.log("Last item:", lastHistory);
-        document.getElementById("recentResult").innerText = lastHistory.result;
+        document.getElementById("recentResult2").innerHTML = `<h3>${lastHistory.result}</h3>`;
       }
 
       // function renderHistory(history) {
