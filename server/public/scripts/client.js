@@ -10,7 +10,7 @@
             //add in rendering latest answer and rendering history
             renderHistory(response.data);
             renderLastAnswer(response.data);
-            console.log("Sucess", response.data);
+            console.log("Success", response.data);
         })
         .catch((error) => {
             console.log("Server Error", error);
@@ -73,8 +73,9 @@
       function renderHistory(history) {
         console.log("Rendering History...", history);
         let placeToRender = document.getElementById("resultHistory");
-        placeToRender.textContent = '';
+        placeToRender.innerHTML = '';
         for(let item of history){
-        placeToRender.textContent += `<ul>${item.numOne} ${item.operator} ${item.numTwo} = ${item.result}</ul>`;
+        placeToRender.innerHTML += `
+        <li>${item.numOne} ${item.operator} ${item.numTwo} = ${item.result}</li>`;
         };
       }
