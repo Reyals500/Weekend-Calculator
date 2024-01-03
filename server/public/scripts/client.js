@@ -26,11 +26,21 @@
         let numOne = document.getElementById('numOne').value
         let numTwo = document.getElementById('numTwo').value
         
-        axios.post("/calculations", {
+        axios({
+          method: "POST",
+          url: 'calculations',
+          data: {
                 numOne: numOne,
                 numTwo: numTwo,
                 operator: operator
+            }
         })
+
+        // axios.post("/calculations", {
+        //         numOne: numOne,
+        //         numTwo: numTwo,
+        //         operator: operator
+        // })
       .then((response) =>{
         console.log('successfully submitted', response )
         //add Get history and handlerClear
